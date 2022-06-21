@@ -12,7 +12,7 @@ namespace NET_CORE_API.Controllers
         const string dbConnection = "Host=localhost;Port=5432;Database=dvdrental;Username=postgres;Password=admin";
 
         [HttpGet("npgsql")]
-        public async Task<List<Film>> GetAll([FromQuery] int? take)
+        public async Task<List<Film>> GetAllRaw([FromQuery] int? take)
         {
             using var con = new NpgsqlConnection(dbConnection);
             await con.OpenAsync();
@@ -54,6 +54,18 @@ namespace NET_CORE_API.Controllers
             // TODO MAYBE CLOSE
 
             return result;
+        }
+
+        [HttpGet("ef-core")]
+        public async Task<List<Film>> GetAllEfCore([FromQuery] int? take)
+        {
+            return null;
+        }
+
+        [HttpGet("dapper")]
+        public async Task<List<Film>> GetAllDapper([FromQuery] int? take)
+        {
+            return null;
         }
     }
 }
