@@ -18,6 +18,15 @@ struct Film {
 }
 
 fn main() {
+
+    let square = |n: i32| {
+        let result = n * n;
+        println!("Квадрат числа {} равен {}", n, result);
+    };
+
+    square(4);
+
+    /*
     let url = "postgresql://postgres:admin@localhost:5432/dvdrental";
     let mut client = Client::connect(url, NoTls).unwrap();
 
@@ -39,6 +48,6 @@ fn main() {
         };
         println!("фильм: {}", film.title);
     }
-
+    */
     println!("Hello, world!");
 }
