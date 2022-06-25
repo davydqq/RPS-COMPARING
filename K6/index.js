@@ -30,7 +30,7 @@ const golang_raw = `http://localhost:8181/films/all/raw?take=${take}`;
 const golang_text = 'http://localhost:8181/';
 
 export default function() {
-    const res = http.get(dotnet_npgsql);
+    const res = http.get(golang_raw);
     check(res, { 'status was 200': (r) => r.status == 200 });
 };
 
