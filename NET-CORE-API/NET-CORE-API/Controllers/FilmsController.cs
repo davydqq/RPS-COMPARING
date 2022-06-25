@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
+using System.Dynamic;
 
 namespace NET_CORE_API.Controllers
 {
@@ -48,6 +49,52 @@ namespace NET_CORE_API.Controllers
                     special_features: special_features,
                     fulltext: fulltext
                     );
+                result.Add(film);
+            }
+
+            // TODO MAYBE CLOSE
+
+            return result;
+        }
+
+        [HttpGet("npgsql/dynamic")]
+        public async Task<List<dynamic>> GetAllRawDynamic([FromQuery] int? take)
+        {
+            using var con = new NpgsqlConnection(dbConnection);
+            await con.OpenAsync();
+
+            string sql = $"SELECT * FROM {nameof(Film)}";
+
+            if (take.HasValue)
+            {
+                sql = $"SELECT * FROM {nameof(Film)} LIMIT {take.Value}";
+            }
+
+            using var cmd = new NpgsqlCommand(sql, con);
+            using NpgsqlDataReader rdr = await cmd.ExecuteReaderAsync();
+
+            var result = new List<dynamic>();
+            while (await rdr.ReadAsync())
+            {
+                var special_features = rdr.GetValue(11);
+                var fulltext = rdr.GetValue(12);
+
+                dynamic film = new ExpandoObject();
+
+                film.film_id = rdr.GetValue(0);
+                film.title = rdr.GetValue(1);
+                film.description = rdr.GetValue(2);
+                film.release_year = rdr.GetValue(3);
+                film.language_id = rdr.GetValue(4);
+                film.rental_duration = rdr.GetValue(5);
+                film.rental_rate = rdr.GetValue(6);
+                film.length = rdr.GetValue(7);
+                film.replacement_cost = rdr.GetValue(8);
+                film.rating = rdr.GetValue(9);
+                film.last_update = rdr.GetValue(10);
+                film.special_features = special_features;
+                film.fulltext = fulltext;
+
                 result.Add(film);
             }
 
