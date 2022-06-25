@@ -27,10 +27,13 @@ const nest_text = 'http://localhost:3000/';
 // GOLANG
 
 const golang_raw = `http://localhost:8181/films/all/raw?take=${take}`;
-const golang_text = 'http://localhost:8181/';
+const golang_text = 'http://localhost:8181/test';
+
+const golang_gin_raw = `http://localhost:8080/raw?take=${take}`;
+const golang_gin_text = 'http://localhost:8080/text';
 
 export default function() {
-    const res = http.get(golang_raw);
+    const res = http.get(golang_gin_raw);
     check(res, { 'status was 200': (r) => r.status == 200 });
 };
 
