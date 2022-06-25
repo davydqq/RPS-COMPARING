@@ -7,7 +7,7 @@ export const options = {
     // insecureSkipTLSVerify: true,
   };
 
-const take = 20;
+const take = 2;
 
 // NET 6
 const dotnet_npgsql = `https://localhost:44317/api/Films/npgsql?take=${take}`;
@@ -24,8 +24,13 @@ const nest_fastify_pg_all = `http://localhost:3000/films/pg`;
 
 const nest_text = 'http://localhost:3000/';
 
+// GOLANG
+
+const golang_raw = `http://localhost:8181/films/all/raw?take=${take}`;
+const golang_text = 'http://localhost:8181/';
+
 export default function() {
-    const res = http.get(dotnet_text);
+    const res = http.get(dotnet_npgsql);
     check(res, { 'status was 200': (r) => r.status == 200 });
 };
 
