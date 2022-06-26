@@ -19,14 +19,6 @@ struct Film {
 
 fn main() {
 
-    let square = |n: i32| {
-        let result = n * n;
-        println!("Квадрат числа {} равен {}", n, result);
-    };
-
-    square(4);
-
-    /*
     let url = "postgresql://postgres:admin@localhost:5432/dvdrental";
     let mut client = Client::connect(url, NoTls).unwrap();
 
@@ -38,7 +30,7 @@ fn main() {
             release_year: row.get(3),
             language_id: row.get(4),
             rental_duration: row.get(5),
-            rental_rate: row.get(6),
+            rental_rate: BigDecimal::from_str(row.get(6)),
             length: row.get(7),
             replacement_cost: row.get(8),
             rating: row.get(9),
@@ -48,6 +40,4 @@ fn main() {
         };
         println!("фильм: {}", film.title);
     }
-    */
-    println!("Hello, world!");
 }

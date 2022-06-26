@@ -7,7 +7,7 @@ export const options = {
     // insecureSkipTLSVerify: true,
   };
 
-const take = 2;
+const take = 50;
 
 // NET 6
 const dotnet_npgsql = `https://localhost:44317/api/Films/npgsql?take=${take}`;
@@ -33,7 +33,7 @@ const golang_gin_raw = `http://localhost:8080/raw?take=${take}`;
 const golang_gin_text = 'http://localhost:8080/text';
 
 export default function() {
-    const res = http.get(golang_gin_raw);
+    const res = http.get(dotnet_npgsql);
     check(res, { 'status was 200': (r) => r.status == 200 });
 };
 

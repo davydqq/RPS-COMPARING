@@ -52,6 +52,8 @@ namespace NET_CORE_API.Controllers
                 result.Add(film);
             }
 
+            await rdr.CloseAsync();
+            await con.CloseAsync();
             // TODO MAYBE CLOSE
 
             return result;
