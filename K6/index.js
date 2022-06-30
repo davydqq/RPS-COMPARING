@@ -2,12 +2,12 @@ import http from "k6/http";
 import { check, sleep } from 'k6';
 
 export const options = {
-    vus: 10,
-    duration: '20s',
+    vus: 15,
+    duration: '30s',
     // insecureSkipTLSVerify: true,
   };
 
-const take = 50;
+const take = 15;
 
 // NET 6
 const dotnet_npgsql = `https://localhost:44317/api/Films/npgsql?take=${take}`;
@@ -33,7 +33,7 @@ const golang_gin_raw = `http://localhost:8080/raw?take=${take}`;
 const golang_gin_text = 'http://localhost:8080/text';
 
 export default function() {
-    const res = http.get(dotnet_npgsql);
+    const res = http.get(golang_gin_raw);
     check(res, { 'status was 200': (r) => r.status == 200 });
 };
 
